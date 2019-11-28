@@ -15,13 +15,14 @@ import { UpdateResult } from '../model/update-result';
 })
 export class ShowAllModelsComponent implements OnInit {
   listaModelli: Array<Modello>;
-  listaMarche: Array<Marca>;
+
+  marca:string;
 
   messaggio: string;
-  aux: string='';
 
   page = 1;
-  pageSize = 4
+  pageSize = 4;
+  collectionSize: number;
 
   nuovoModello: Modello;
 
@@ -34,12 +35,14 @@ export class ShowAllModelsComponent implements OnInit {
       .subscribe((response: any) => {
         const queryResult: QueryResult = response;
         this.listaModelli = queryResult.esito.modello;
-        for (let i = 0; i < this.listaModelli.length; i++) {
+        this.collectionSize = this.listaModelli.length;
+        for (let i=0; i<this.collectionSize; i++){
           this.brandSvc.getBrandById(this.listaModelli[i].idMarca)
-            .subscribe((response: any) => {
-              const queryResult: QueryResult = response;
-              this.aux=queryResult.esito.marca[0].nome;
-            });
+          .subscribe((response: any)=>{
+            const queryResult: QueryResult = response;
+            this.marca=queryResult.esito.marca[0].nome;
+            console.log(queryResult.esito.marca[0]);
+          });
         }
       }, (error: any) => {
         setTimeout(() => {
@@ -47,30 +50,6 @@ export class ShowAllModelsComponent implements OnInit {
         }, 7000);
       });
   }
-
-  /* this.modelSvc.getModelByName(this.info.value.nome)
-        .subscribe((response: any) => {
-          const queryResult: QueryResult = response;
-          this.listaModelli = queryResult.esito.modello;
-          this.modelliTrovati = this.listaModelli.length;
-          this.isCollapsed = false;
-          this.brandSvc.getBrandById(this.listaModelli[0].idMarca)
-            .subscribe((response: any) => {
-              const queryResult: QueryResult = response;
-              this.marca = queryResult.esito.marca[0].nome;
-              this.fondazione = queryResult.esito.marca[0].fondazione;
-              this.web = queryResult.esito.marca[0].website;
-              this.isCollapsed = false;
-            }, (error: any) => {
-              this.messaggio = 'HTTP error!<br><br>' + error.message;
-              this.isCollapsed = false;
-            });
-
-          this.isCollapsed = false;
-        }, (error: any) => {
-          this.messaggio = 'HTTP error!<br><br>' + error.message;
-          this.isCollapsed = false;
-        });*/
 
   updateModel(modello: Modello, modalUpdate: any) {
     this.nuovoModello = modello;
