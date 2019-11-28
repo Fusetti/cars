@@ -15,14 +15,13 @@ import { UpdateResult } from '../model/update-result';
 })
 export class ShowAllModelsComponent implements OnInit {
   listaModelli: Array<Modello>;
-
-  marca: string;
+  listaMarche: Array<Marca>;
 
   messaggio: string;
+  aux: string='';
 
   page = 1;
-  pageSize = 4;
-  collectionSize: number;
+  pageSize = 4
 
   nuovoModello: Modello;
 
@@ -35,9 +34,12 @@ export class ShowAllModelsComponent implements OnInit {
       .subscribe((response: any) => {
         const queryResult: QueryResult = response;
         this.listaModelli = queryResult.esito.modello;
-        this.collectionSize = this.listaModelli.length;
         for (let i = 0; i < this.listaModelli.length; i++) {
-          console.log(this.listaModelli[i]);
+          this.brandSvc.getBrandById(this.listaModelli[i].idMarca)
+            .subscribe((response: any) => {
+              const queryResult: QueryResult = response;
+              this.aux=queryResult.esito.marca[0].nome;
+            });
         }
       }, (error: any) => {
         setTimeout(() => {
