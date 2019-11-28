@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ModelDataService } from '../model/model-data.service';
+import { BrandDataService } from '../model/brand-data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Modello } from '../model/model';
+import { Marca } from '../model/brand';
 import { QueryResult } from '../model/query-result';
 import { UpdateResult } from '../model/update-result';
 
@@ -14,6 +16,8 @@ import { UpdateResult } from '../model/update-result';
 export class ShowAllModelsComponent implements OnInit {
   listaModelli: Array<Modello>;
 
+  marca: string;
+
   messaggio: string;
 
   page = 1;
@@ -24,7 +28,7 @@ export class ShowAllModelsComponent implements OnInit {
 
   alertCtrl = false;
 
-  constructor(private modelSvc: ModelDataService, private modalSvc: NgbModal) { }
+  constructor(private modelSvc: ModelDataService, private brandSvc: BrandDataService, private modalSvc: NgbModal) { }
 
   ngOnInit() {
     this.modelSvc.getAllModels()
@@ -32,12 +36,39 @@ export class ShowAllModelsComponent implements OnInit {
         const queryResult: QueryResult = response;
         this.listaModelli = queryResult.esito.modello;
         this.collectionSize = this.listaModelli.length;
+        for (let i = 0; i < this.listaModelli.length; i++) {
+          console.log(this.listaModelli[i]);
+        }
       }, (error: any) => {
         setTimeout(() => {
           this.messaggio = 'No models found!<br><br>HTTP error!<br><br>' + error.message;
         }, 7000);
       });
   }
+
+  /* this.modelSvc.getModelByName(this.info.value.nome)
+        .subscribe((response: any) => {
+          const queryResult: QueryResult = response;
+          this.listaModelli = queryResult.esito.modello;
+          this.modelliTrovati = this.listaModelli.length;
+          this.isCollapsed = false;
+          this.brandSvc.getBrandById(this.listaModelli[0].idMarca)
+            .subscribe((response: any) => {
+              const queryResult: QueryResult = response;
+              this.marca = queryResult.esito.marca[0].nome;
+              this.fondazione = queryResult.esito.marca[0].fondazione;
+              this.web = queryResult.esito.marca[0].website;
+              this.isCollapsed = false;
+            }, (error: any) => {
+              this.messaggio = 'HTTP error!<br><br>' + error.message;
+              this.isCollapsed = false;
+            });
+
+          this.isCollapsed = false;
+        }, (error: any) => {
+          this.messaggio = 'HTTP error!<br><br>' + error.message;
+          this.isCollapsed = false;
+        });*/
 
   updateModel(modello: Modello, modalUpdate: any) {
     this.nuovoModello = modello;
