@@ -39,6 +39,7 @@ export class SearchModelComponent implements OnInit {
           const queryResult: QueryResult = response;
           this.listaModelli = queryResult.esito.modello;
           this.modelliTrovati = this.listaModelli.length;
+          this.isCollapsed = false;
           this.brandSvc.getBrandById(this.listaModelli[0].idMarca)
             .subscribe((response: any) => {
               const queryResult: QueryResult = response;
