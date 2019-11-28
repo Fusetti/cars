@@ -1,0 +1,77 @@
+<main class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+      <h3 class="text-primary text-center mb-4">Search Models by name</h3>
+      <form [formGroup]="info" (ngSubmit)="onSubmit(toolTip)">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" formControlName="nome" placeholder="search for models" required
+            #toolTip="ngbTooltip" ngbTooltip="Enter the name" tooltipClass="message" triggers="manual"
+            [autoClose]="false">
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-outline-info">Search</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6" [ngbCollapse]="isCollapsed">
+      <div class="card border-info">
+        <div class="card-header">
+          <h4 class="card-title text-secondary text-center">Models found: {{ modelliTrovati }}
+          </h4>
+        </div>
+        <div class="card-body dim">
+          <ng-container *ngIf="listaModelli; else errorMessage">
+            <ng-container *ngIf="modelliTrovati === 0; else showModel">
+              <h5 class="text-info py-4">There are no models with that name</h5>
+            </ng-container>
+            <ng-template #showModel>
+              <ng-container *ngFor="let modello of listaModelli; index as i">
+                <hr class="bg-info my-4" *ngIf="i !== 0">
+                <ul class="list-group list-group-flush text-nowrap">
+                  <li class="list-group-item text-info">
+                    <span class="text-muted">Nome: </span>{{ modello.nome }}
+                  </li>
+                  <li class="list-group-item text-info">
+                    <span class="text-muted">Cilindrata: </span>{{ modello.cilindrata }}
+                  </li>
+                  <li class="list-group-item text-info">
+                    <span class="text-muted">Potenza: </span>
+                    {{ modello.potenza }}
+                  </li>
+                  <li class="list-group-item text-info" [ngbPopover]="showMarca">
+                    <span class="text-muted">Marca: </span>
+                    <span class="link">{{ marca }}</span>
+                  </li>
+
+                </ul>
+              </ng-container>
+            </ng-template>
+          </ng-container>
+          <ng-template #errorMessage>
+            <h5 class="text-danger" [innerHTML]="messaggio"></h5>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #showMarca class="popover" role="tooltip">
+
+    <h3 class="popover-header">{{marca}}</h3>
+    <div class="arrow"></div>
+    <div class="popover-body">
+      <ul class="list-group list-group-flush text-nowrap">
+        <li class="list-group-item text-info">
+          <span class="text-muted">Anno: </span>
+          {{fondazione}}
+        </li>
+        <li class="list-group-item text-info">
+          <span class="text-muted">Website: </span>
+          <a href="{{web}}">{{ web }}</a>
+        </li>
+      </ul>
+
+    </div>
+  </ng-template>
+
+
+</main>

@@ -1,0 +1,60 @@
+<main class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+      <h3 class="text-primary text-center mb-4">Search brands by name</h3>
+      <form [formGroup]="info" (ngSubmit)="onSubmit(toolTip)">
+        <div class="input-group mb-3">
+          <input type="text"
+                 class="form-control"
+                 formControlName="nome"
+                 placeholder="search for brands"
+                 required
+                 #toolTip="ngbTooltip"
+                 ngbTooltip="Enter the name"
+                 tooltipClass="message"
+                 triggers="manual"
+                 [autoClose]="false"
+          >
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-outline-info">Search</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6" [ngbCollapse]="isCollapsed">
+      <div class="card border-info">
+        <div class="card-header">
+          <h4 class="card-title text-secondary text-center">Brands found: {{ marcheTrovate }}
+          </h4>
+        </div>
+        <div class="card-body dim">
+          <ng-container *ngIf="listaMarche; else errorMessage">
+            <ng-container *ngIf="marcheTrovate === 0; else showBrands">
+              <h5 class="text-info py-4">There are no brands with that name</h5>
+            </ng-container>
+            <ng-template #showBrands>
+              <ng-container *ngFor="let marca of listaMarche; index as i">
+                <hr class="bg-info my-4" *ngIf="i !== 0">
+                <ul class="list-group list-group-flush text-nowrap">
+                  <li class="list-group-item text-info">
+                    <span class="text-muted">Nome: </span>{{ marca.nome }}
+                  </li>
+                  <li class="list-group-item text-info">
+                    <span class="text-muted">Fondazione: </span>{{ marca.fondazione }}
+                  </li>
+                  <li class="list-group-item text-info">
+                    <span class="text-muted">Website: </span>
+                    <a [href]="marca.website">{{ marca.website }}</a>
+                  </li>
+                </ul>
+              </ng-container>
+            </ng-template>
+          </ng-container>
+          <ng-template #errorMessage>
+            <h5 class="text-danger" [innerHTML]="messaggio"></h5>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

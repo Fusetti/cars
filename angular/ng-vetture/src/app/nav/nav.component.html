@@ -1,0 +1,27 @@
+<nav class="navbar sticky-top navbar-expand-sm navbar-dark bg-dark">
+  <a routerLink="/" class="text-hide">
+    <img src="./assets/img/logo.png" alt="logo" width="60"> logo
+  </a>
+  <button type="button" class="navbar-toggler" (click)="isCollapsed = !isCollapsed" data-toggle="collapse" data-target="#content">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div id="content" [ngClass]="{ 'collapse navbar-collapse': true,  'show': isCollapsed }">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a routerLink="/home" routerLinkActive="active" class="nav-link">Home</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/store" routerLinkActive="active" class="nav-link">Store</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/about" routerLinkActive="active" class="nav-link">About</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/contact" routerLinkActive="active" class="nav-link">Contact us</a>
+      </li>
+    </ul>
+    <time class="text-warning">
+      <sub>{{ now | date:'E, d/M/y HH:mm' }}</sub>
+    </time>
+  </div>
+</nav>

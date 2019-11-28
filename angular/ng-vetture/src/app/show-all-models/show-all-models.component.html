@@ -1,0 +1,87 @@
+<main class="container">
+  <div *ngIf="listaModelli; else errorMessage" class="table-responsive-md">
+    <h3 class="h3 text-center text-primary my-3">List of all Models</h3>
+    <table class="table table-striped">
+      <caption>
+        <p [ngClass]="{ 'show-alert': alertCtrl, 'hide-alert': !alertCtrl }">
+          <ngb-alert type="info" (close)="closeAlert()">{{ messaggio }}</ngb-alert>
+        </p>
+        There are {{ collectionSize }} Models
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Cilindrata</th>
+          <th scope="col">Potenza</th>
+          <th scope="col">Marca</th>
+          <th scope="col">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let modello of listaModelli | slice: (page-1)*pageSize : (page-1)*pageSize+pageSize; index as i">
+          <th scope="row">{{ i + 1 + (page-1)*pageSize }}</th>
+          <td>{{ modello.nome }}</td>
+          <td>{{ modello.cilindrata }}</td>
+          <td>{{ modello.potenza }}</td>
+          
+          <td>
+            <div ngbDropdown placement="bottom-right" class="d-inline-block">
+              <button id="choose" class="btn btn-outline-dark btn-sm text-truncate" ngbDropdownToggle>choose</button>
+              <div ngbDropdownMenu aria-labelledby="choose">
+                <button class="dropdown-item" (click)="updateModel(modello, modalUpdate)">update</button>
+                <button class="dropdown-item" (click)="removeModel(modello.idModello, modalRemove)">remove</button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-start p-2">
+      <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"></ngb-pagination>
+    </div>
+  </div>
+  <ng-template #errorMessage>
+    <div class="text-center pt-5">
+      <ng-container *ngIf="!messaggio; else errorMessage">
+        <div class="spinner-border text-secondary m-1" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-border text-secondary m-1" role="status"></div>
+        <div class="spinner-border text-secondary m-1" role="status"></div>
+      </ng-container>
+      <ng-template #errorMessage>
+        <h5 class="text-left text-danger text-break" [innerHTML]="messaggio"></h5>
+      </ng-template>
+    </div>
+  </ng-template>
+
+  <!-- modal -->
+  <ng-template #modalUpdate let-modal1>
+    <div class="modal-header">
+      <h4 class="modal-title text-info" id="modal1-basic-title">Edit the data model</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal1.dismiss()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <app-update-model [nModello]="nuovoModello" (conferma)="finishUpdate()"></app-update-model>
+    </div>
+  </ng-template>
+
+  <!-- modal -->
+  <ng-template #modalRemove let-modal2>
+    <div class="modal-header">
+      <h4 class="modal-title text-info" id="modal2-basic-title">Warning</h4>
+    </div>
+    <div class="modal-body">
+      <h5 class="text-secondary">Are you sure?</h5>
+    </div>
+    <div class="modal-footer">
+      <div class="form-group">
+        <button type="button" class="btn btn-outline-secondary mx-1" (click)="modal2.close(false)">No</button>
+        <button type="button" class="btn btn-outline-info mx-1" (click)="modal2.close(true)">Sì</button>
+      </div>
+    </div>
+  </ng-template>
+</main>

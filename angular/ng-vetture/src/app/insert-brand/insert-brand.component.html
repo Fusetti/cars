@@ -1,0 +1,84 @@
+<main class="container-fluid">
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+      <h3 class="text-info text-center">Insert Brand</h3>
+      <hr class="my-3 mx-5">
+      <form [formGroup]="marcaFG" (ngSubmit)="onSubmit(content)">
+        <div class="form-row">
+          <div class="form-group col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <label for="nome">Nome:</label>
+            <input type="text"
+                   formControlName="nome"
+                   id="nome"
+                   [ngClass]="{
+                    'form-control mb-1': true,
+                    'input-err': nomeCtrl
+                   }"
+                   placeholder="nome"
+                   required
+                   autofocus
+                   (input)="check('nome')"
+                   (blur)="check('nome')"
+            >
+            <small class="text-danger" [ngStyle]="{ 'visibility': nomeCtrl ? 'visible' : 'hidden' }">Enter the brand name</small>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <label for="fondazione">Fondazione:</label>
+            <input type="text"
+                   formControlName="fondazione"
+                   id="fondazione"
+                   [ngClass]="{
+                    'form-control mb-1': true,
+                    'input-err': fondazioneCtrl
+                   }"
+                   placeholder="fondazione"
+                   required
+                   (input)="check('fondazione')"
+                   (blur)="check('fondazione')"
+            >
+            <small class="text-danger" [ngStyle]="{ 'visibility': fondazioneCtrl ? 'visible' : 'hidden' }">Enter the year with 4 digits</small>
+          </div>
+          <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <label for="website">Website:</label>
+            <input type="url"
+                   formControlName="website"
+                   id="website"
+                   [ngClass]="{
+                     'form-control mb-1': true,
+                     'input-err': websiteCtrl
+                   }"
+                   placeholder="website"
+                   required
+                   (input)="check('website')"
+                   (blur)="check('website')"
+            >
+            <small class="text-danger" [ngStyle]="{ 'visibility': websiteCtrl ? 'visible' : 'hidden' }">Enter a valid url</small>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <input type="reset" class="btn btn-secondary btn-size m-1" value="Reset">
+            <input type="submit" class="btn btn-primary btn-size m-1" value="Send" [disabled]="!marcaFG.valid">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-2"></div>
+  </div>
+
+  <!-- modal -->
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title text-info" id="modal-basic-title">Info</h4>
+    </div>
+    <div class="modal-body">
+      <h5 [ngClass]="{ 'text-secondary': !messaggioCtrl, 'text-danger': messaggioCtrl }" [innerHTML]="messaggio"></h5>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-info" (click)="modal.close()">Ok</button>
+    </div>
+  </ng-template>
+</main>

@@ -1,0 +1,27 @@
+{
+  "name": "ws-vetture",
+  "version": "1.0.0",
+  "description": "RESTful",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "repository.git"
+  },
+  "keywords": [
+    "RESTful",
+    "vetture"
+  ],
+  "author": "Antonio",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "oracledb": "^3.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
+}

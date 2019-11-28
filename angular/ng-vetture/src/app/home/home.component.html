@@ -1,0 +1,29 @@
+<main class="container text-center">
+  <h1 class="text-secondary mb-3">Welcome in Cars Web</h1>
+  <ngb-carousel *ngIf="images">
+    <ng-template ngbSlide>
+      <img [src]="images[0]" alt="ferrari_01" class="shadow-lg">
+    </ng-template>
+    <ng-template ngbSlide>
+      <img [src]="images[1]" alt="ferrari_02" class="shadow-lg">
+    </ng-template>
+    <ng-template ngbSlide>
+      <img [src]="images[2]" alt="lamborghini_01" class="shadow-lg">
+    </ng-template>
+    <ng-template ngbSlide>
+      <img [src]="images[3]" alt="lamborghini_02" class="shadow-lg">
+    </ng-template>
+    <ng-template ngbSlide>
+      <img [src]="images[4]" alt="porsche_01" class="shadow-lg">
+    </ng-template>
+    <ng-template ngbSlide>
+      <img [src]="images[5]" alt="porsche_02" class="shadow-lg">
+    </ng-template>
+    <ng-template ngbSlide>
+      <img [src]="images[6]" alt="maserati_01" class="shadow-lg">
+    </ng-template>
+    <ng-template ngbSlide>
+      <img [src]="images[7]" alt="jaguar_01" class="shadow-lg">
+    </ng-template>
+  </ngb-carousel>
+</main>

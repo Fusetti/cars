@@ -1,0 +1,74 @@
+<div class="row">
+  <div class="col-12">
+    <form [formGroup]="modelloFG" (ngSubmit)="onSubmit(content)">
+      <div class="form-row">
+        <div class="form-group col-sm-6">
+          <label for="nome">Nome:</label>
+          <input type="text"
+                 formControlName="nome"
+                 id="nome"
+                 [ngClass]="{
+                   'form-control mb-1': true,
+                   'input-err': nomeCtrl
+                 }"
+                 placeholder="nome"
+                 required
+                 autofocus
+                 (input)="check('nome')"
+                 (blur)="check('nome')"
+          >
+          <small class="text-danger" [ngStyle]="{ 'visibility': nomeCtrl ? 'visible' : 'hidden' }">Enter the model name</small>
+        </div>
+        <div class="form-group col-sm-6">
+          <label for="cilindrata">Cilindrata:</label>
+          <input type="number"
+                 formControlName="cilindrata"
+                 id="cilindrata"
+                 [ngClass]="{
+                   'form-control mb-1': true,
+                   'input-err': cilindrataCtrl
+                 }"
+                 placeholder="cilindrata"
+                 required
+                 (input)="check('cilindrata')"
+                 (blur)="check('cilindrata')"
+          >
+          <small class="text-danger" [ngStyle]="{ 'visibility': cilindrataCtrl ? 'visible' : 'hidden' }">Enter the cilindrata</small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="Potenza">Potenza:</label>
+        <input type="number"
+               formControlName="potenza"
+               id="potenza"
+               [ngClass]="{
+                 'form-control mb-1': true,
+                 'input-err': potenzaCtrl
+               }"
+               placeholder="potenza"
+               required
+               (input)="check('potenza')"
+               (blur)="check('potenza')"
+        >
+        <small class="text-danger" [ngStyle]="{ 'visibility': potenzaCtrl ? 'visible' : 'hidden' }">Enter a valid potenza</small>
+      </div>
+      <div class="form-group">
+        <input type="reset" class="btn btn-secondary btn-size m-1" value="Reset">
+        <input type="submit" class="btn btn-primary btn-size m-1" value="Send" [disabled]="!modelloFG.valid">
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- modal -->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title text-info" id="modal-basic-title">Info</h4>
+  </div>
+  <div class="modal-body">
+    <h5 [ngClass]="{ 'text-secondary': !messaggioCtrl, 'text-danger': messaggioCtrl }" [innerHTML]="messaggio"></h5>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-info" (click)="modal.close()">Ok</button>
+  </div>
+</ng-template>

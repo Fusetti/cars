@@ -1,0 +1,28 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-sm-4 col-md-3 col-lg-3 col-xl-2 bg-dark sub-menu">
+      <aside>
+        <nav class="nav flex-column">
+          <a [routerLink]="[{ outlets: { content: ['insert-brand'] } }]" routerLinkActive="active"
+            class="nav-link btn btn-outline-light btn-sm my-1">Insert Brand</a>
+          <a [routerLink]="[{ outlets: { content: ['search-brands'] } }]" routerLinkActive="active"
+            class="nav-link btn btn-outline-light btn-sm my-1">Search Brands</a>
+          <a [routerLink]="[{ outlets: { content: ['show-brands'] } }]" routerLinkActive="active"
+            class="nav-link btn btn-outline-light btn-sm my-1">Show all Brands</a>
+        </nav>
+        <hr class="my-3 line">
+        <nav class="nav flex-column">
+          <a [routerLink]="[{ outlets: { content: ['insert-model'] } }]" routerLinkActive="active"
+            class="nav-link btn btn-outline-light btn-sm my-1">Insert Model</a>
+          <a [routerLink]="[{ outlets: { content: ['search-model'] } }]" routerLinkActive="active"
+            class="nav-link btn btn-outline-light btn-sm my-1">Search Models</a>
+          <a [routerLink]="[{ outlets: { content: ['show-all-models'] } }]" routerLinkActive="active"
+            class="nav-link btn btn-outline-light btn-sm my-1">Show all Models</a>
+        </nav>
+      </aside>
+    </div>
+    <div class="col-12 col-sm-8 col-md-9 col-lg-9 col-xl-10">
+      <router-outlet name="content"></router-outlet>
+    </div>
+  </div>
+</section>
